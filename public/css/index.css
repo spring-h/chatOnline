@@ -1,0 +1,715 @@
+@charset "UTF-8";
+/*
+ * @author: Spring
+ * @create: 2021-05-14 14:42 PM
+ * @license: MIT
+ * @lastAuthor: Spring
+ * @lastEditTime: 2021-05-24 11:37 AM
+ * @desc: 
+ */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./OpenSans-Light.woff?v=1.1.0") format("woff");
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 16px;
+  background-color: #f5f5f5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #e5e5e5;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.container .logo {
+  width: 886px;
+  height: 286px;
+  margin: 84px auto 99px;
+}
+.container .logo img {
+  height: 286px;
+  width: 886px;
+}
+.container form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.container input {
+  width: 862px;
+  height: 180px;
+  border-radius: 69px;
+  margin-bottom: 76px;
+  border-color: #0063b1;
+  outline: none;
+  font-size: 100px;
+  text-align: center;
+}
+
+.chatroom {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  grid-template-rows: 100vh;
+  grid-gap: 0 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #e5e5e5;
+}
+.chatroom .online {
+  font-size: 16px;
+  position: relative;
+  overflow-y: scroll;
+}
+.chatroom .online .header {
+  font-size: 18px;
+  color: #667A90;
+  font-weight: bold;
+  font-family: OpenSans-Semibold;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  right: none;
+  bottom: none;
+  left: 0;
+  width: 100%;
+  height: 97.5px;
+  background-color: #fff;
+  padding: 0 34.4px;
+  box-sizing: border-box;
+}
+.chatroom .online .header img {
+  width: 15px;
+  height: 15px;
+}
+.chatroom .online .header .title {
+  margin-right: 65px;
+  font-family: "Open Sans";
+}
+.chatroom .online .header .s, .chatroom .online .header .l {
+  margin-right: 36px;
+}
+.chatroom .online .header .s:hover, .chatroom .online .header .l:hover {
+  cursor: pointer;
+}
+.chatroom .online .headersearch {
+  position: absolute;
+  top: 0;
+  right: none;
+  bottom: none;
+  left: 0;
+  width: 100%;
+  height: 97.5px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 0 32.5px 0 35.5px;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+}
+.chatroom .online .headersearch .longString {
+  background-color: #667A90;
+  position: absolute;
+  top: 40px;
+  right: none;
+  bottom: none;
+  left: 30px;
+  width: 2px;
+  height: 18px;
+}
+.chatroom .online .headersearch input {
+  font-size: 16px;
+  color: #667a90;
+  font-weight: bold;
+  font-family: "Segoe UI";
+  border: none;
+  outline: none;
+}
+.chatroom .online .headersearch .iconbox img {
+  width: 15px;
+  height: 15px;
+}
+.chatroom .online .headersearch .iconbox .c {
+  margin-right: 21.5px;
+}
+.chatroom .online .headersearch .list {
+  position: absolute;
+  top: 72px;
+  right: none;
+  bottom: none;
+  left: 30px;
+  width: 316px;
+  height: 360px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #7595b9;
+}
+.chatroom .online .headersearch .list-li {
+  width: 100%;
+  height: 62px;
+  border: 1px solid #7595b9;
+  background-color: #ebf4fa;
+  padding: 7px 16px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 48px 10px 225px;
+  grid-template-rows: 21px 19px;
+  grid-gap: 0 0;
+  grid-template-areas: "a b c" "a b d";
+}
+.chatroom .online .headersearch .list-li img {
+  grid-area: a;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.chatroom .online .headersearch .list-li .usern {
+  font-size: 16px;
+  color: #667a90;
+  font-weight: bold;
+  font-family: "Open Sans";
+  align-self: center;
+  grid-area: c;
+}
+.chatroom .online .headersearch .list-li .message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #667a90;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+  align-self: center;
+  grid-area: d;
+}
+.chatroom .online .headersearch .list-li:hover {
+  cursor: pointer;
+}
+.chatroom .online .onlineUser {
+  width: 100%;
+  margin-top: 98.5px;
+}
+.chatroom .online .onlineUser .user {
+  display: grid;
+  grid-template-columns: 48px 267px 29px;
+  grid-template-rows: 24px 24px;
+  grid-gap: 0 0;
+  grid-template-areas: "a b c" "a d e";
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 25px 34px;
+  height: 95px;
+  margin-top: 1px;
+}
+.chatroom .online .onlineUser .user .name {
+  font-size: 15px;
+  color: #667A90;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+}
+.chatroom .online .onlineUser .user .content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #667A90;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+}
+.chatroom .online .onlineUser .user .time {
+  font-size: 11px;
+  color: #667A90;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+  white-space: nowrap;
+  justify-self: right;
+}
+.chatroom .online .onlineUser .user .infornum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 12px;
+  color: #fff;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+  justify-self: right;
+  background-color: #7595b9;
+  border-radius: 2px;
+  width: 18px;
+  height: 18px;
+}
+.chatroom .online .onlineUser .user .img {
+  grid-area: a;
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+.chatroom .online .onlineUser .user .img img {
+  width: 100%;
+  height: 100%;
+}
+.chatroom .online .onlineUser .user .img .circle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: none;
+  left: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #00d905;
+}
+.chatroom .online .onlineUser .user .triangle {
+  border-top: 8px solid #EBF4FA;
+  border-right: 8px solid #EBF4FA;
+  border-left: none;
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: none;
+  left: none;
+  width: 0;
+  height: 0;
+}
+.chatroom .online .onlineUser .user:hover {
+  cursor: pointer;
+}
+.chatroom .interface {
+  overflow-x: hidden;
+}
+.chatroom .interface .head {
+  background-color: #fff;
+  font-size: 24px;
+  color: #42648A;
+  font-weight: bold;
+  font-family: "OpenSans-Semibold";
+  display: grid;
+  grid-template-columns: 1fr 21px;
+  grid-template-rows: 32px 21px;
+  grid-gap: 0 0;
+  padding: 18px 51px 26px 34px;
+  box-sizing: border-box;
+  grid-template-areas: "a b" "c b";
+}
+.chatroom .interface .head .isonline {
+  font-size: 16px;
+  color: #607996;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+}
+.chatroom .interface .head .close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  grid-area: b;
+  width: 21px;
+  height: 21px;
+}
+.chatroom .interface .head .close img {
+  width: 100%;
+  height: 100%;
+}
+.chatroom .interface .head2 {
+  display: none;
+}
+.chatroom .interface .msg {
+  height: calc(100vh - 145px - 98px);
+  width: 100%;
+  margin-top: 1px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 16px 48px 0 34px;
+  background-image: url("../img/bg.png");
+  background-size: 55% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow-y: auto;
+}
+.chatroom .interface .msg .other {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: row;
+  margin-top: 63px;
+}
+.chatroom .interface .msg .other > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-left: 0;
+  margin-right: 16px;
+}
+.chatroom .interface .msg .other .content {
+  font-size: 16px;
+  color: #607996;
+  font-weight: normal;
+  font-family: "Open Sans";
+  padding: 18px 33px 20px 20px;
+  box-sizing: border-box;
+  background-color: #ebf4fa;
+  border-radius: 6px;
+  max-width: 1282px;
+  min-height: 41px;
+  position: relative;
+}
+.chatroom .interface .msg .other .content img {
+  transform: rotateY(0);
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: 4.9px;
+  left: -9.1px;
+  width: 30px;
+  height: 21px;
+}
+.chatroom .interface .msg .other .content .slefname {
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: -33px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  color: #8c9bac;
+  font-weight: bold;
+  font-family: "Open Sans";
+}
+.chatroom .interface .msg .other .content .time {
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  font-size: 14px;
+  color: #8C9BAC;
+  font-weight: normal;
+  font-family: "Open Sans";
+  white-space: nowrap;
+}
+.chatroom .interface .msg .mine {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: row;
+  margin-top: 63px;
+}
+.chatroom .interface .msg .mine > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-left: 16px;
+  margin-right: 0;
+}
+.chatroom .interface .msg .mine .content {
+  font-size: 16px;
+  color: #607996;
+  font-weight: normal;
+  font-family: "Open Sans";
+  padding: 18px 33px 20px 20px;
+  box-sizing: border-box;
+  background-color: #ebf4fa;
+  border-radius: 6px;
+  max-width: 1282px;
+  min-height: 41px;
+  position: relative;
+}
+.chatroom .interface .msg .mine .content img {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: none;
+  right: -9.1px;
+  bottom: 4.9px;
+  left: none;
+  width: 30px;
+  height: 21px;
+}
+.chatroom .interface .msg .mine .content .slefname {
+  position: absolute;
+  top: none;
+  right: 0;
+  bottom: -33px;
+  left: none;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  font-size: 16px;
+  color: #8c9bac;
+  font-weight: bold;
+  font-family: "Open Sans";
+}
+.chatroom .interface .msg .mine .content .time {
+  position: absolute;
+  top: none;
+  right: 0;
+  bottom: -50px;
+  left: none;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  font-size: 14px;
+  color: #8C9BAC;
+  font-weight: normal;
+  font-family: "Open Sans";
+  white-space: nowrap;
+}
+.chatroom .interface .msg .otherone {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: row;
+  margin-top: 63px;
+}
+.chatroom .interface .msg .otherone > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-left: 0;
+  margin-right: 16px;
+}
+.chatroom .interface .msg .otherone .content {
+  font-size: 16px;
+  color: #607996;
+  font-weight: normal;
+  font-family: "Open Sans";
+  padding: 18px 33px 20px 20px;
+  box-sizing: border-box;
+  background-color: #ebf4fa;
+  border-radius: 6px;
+  max-width: 1282px;
+  min-height: 41px;
+  position: relative;
+}
+.chatroom .interface .msg .otherone .content img {
+  transform: rotateY(0);
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: 4.9px;
+  left: -9.1px;
+  width: 30px;
+  height: 21px;
+}
+.chatroom .interface .msg .otherone .content .slefname {
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: -33px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  color: #8c9bac;
+  font-weight: bold;
+  font-family: "Open Sans";
+}
+.chatroom .interface .msg .otherone .content .time {
+  position: absolute;
+  top: none;
+  right: none;
+  bottom: -33px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  font-size: 14px;
+  color: #8C9BAC;
+  font-weight: normal;
+  font-family: "Open Sans";
+  white-space: nowrap;
+}
+.chatroom .interface .msg .mineone {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: row;
+  margin-top: 63px;
+}
+.chatroom .interface .msg .mineone > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-left: 16px;
+  margin-right: 0;
+}
+.chatroom .interface .msg .mineone .content {
+  font-size: 16px;
+  color: #607996;
+  font-weight: normal;
+  font-family: "Open Sans";
+  padding: 18px 33px 20px 20px;
+  box-sizing: border-box;
+  background-color: #ebf4fa;
+  border-radius: 6px;
+  max-width: 1282px;
+  min-height: 41px;
+  position: relative;
+}
+.chatroom .interface .msg .mineone .content img {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: none;
+  right: -9.1px;
+  bottom: 4.9px;
+  left: none;
+  width: 30px;
+  height: 21px;
+}
+.chatroom .interface .msg .mineone .content .slefname {
+  position: absolute;
+  top: none;
+  right: 0;
+  bottom: -33px;
+  left: none;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  font-size: 16px;
+  color: #8c9bac;
+  font-weight: bold;
+  font-family: "Open Sans";
+}
+.chatroom .interface .msg .mineone .content .time {
+  position: absolute;
+  top: none;
+  right: 0;
+  bottom: -33px;
+  left: none;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  font-size: 14px;
+  color: #8C9BAC;
+  font-weight: normal;
+  font-family: "Open Sans";
+  white-space: nowrap;
+}
+.chatroom .interface .sendmsg {
+  display: grid;
+  grid-template-columns: 1fr 23px 119px;
+  grid-template-rows: 19px 11px 79px;
+  grid-gap: 0 0;
+  grid-template-areas: "a a a" "b b b" "c d e";
+  width: 100%;
+  height: 145px;
+  padding: 12px 32px 24px 18px;
+  box-sizing: border-box;
+  background-color: #f2f4f6;
+  position: relative;
+}
+.chatroom .interface .sendmsg .img {
+  width: 19px;
+  height: 19px;
+  grid-area: a;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.chatroom .interface .sendmsg .img img {
+  border-radius: 50%;
+  grid-area: a;
+}
+.chatroom .interface .sendmsg .moreface {
+  display: grid;
+  grid-template-columns: repeat(12, 22px);
+  grid-template-rows: repeat(8, 22px);
+  grid-gap: 0 0;
+  position: absolute;
+  top: -226px;
+  right: none;
+  bottom: none;
+  left: 24px;
+  width: 365px;
+  height: 226px;
+  grid-gap: 5px;
+  box-sizing: border-box;
+  padding: 20px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  border-radius: 6px;
+  background-color: #F2F4F6;
+  display: none;
+}
+.chatroom .interface .sendmsg .moreface .oneface {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.chatroom .interface .sendmsg input {
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  grid-area: c;
+}
+.chatroom .interface .sendmsg .send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 18px;
+  color: #fff;
+  font-weight: normal;
+  font-family: "OpenSans-Semibold";
+  background-color: #4d75a3;
+  align-self: flex-end;
+  width: 100%;
+  height: 47px;
+  border-radius: 6px;
+  grid-area: e;
+}
+.chatroom .interface .sendmsg .send span {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=index.css.map */

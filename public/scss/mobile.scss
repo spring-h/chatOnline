@@ -1,0 +1,317 @@
+@import "_public";
+.container {
+  width: 100%;
+  @include flex(flex-start, center, column);
+  .logo {
+    width: 88vw;
+    margin-top: 84px;
+    img {
+      width: 88vw;
+    }
+  }
+  form{
+    @include flex(flex-start,center,column);
+  }
+  input {
+    margin: 128px auto 48px;
+    width: 92vw;
+    height: 61px;
+    border-radius: 69px;
+    border-color: #0063b1;
+    outline: none;
+    font-size: 36px;
+    text-align: center;
+  }
+}
+
+.chatroom {
+  width: 100%;
+  height: 100vh;
+  background-color: #e5e5e5;
+  .online {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-y: scroll;
+    .header {
+      @include font(18px, #667A90,bold,OpenSans-Semibold);
+      // @include grid(1fr repeat(3,19.5px),1fr);
+      @include flex(flex-start, center);
+      grid-gap: 25.5px;
+      align-items: center;
+      @include position(absolute,0,none ,none ,0,100%,91px);
+      background-color: #fff;
+      padding: 0 8vw;
+      box-sizing: border-box;
+      img {
+        width: 19.5px;
+        height: 19.5px;
+      }
+      .title {
+        font-family: "Open Sans";
+      }
+      .s,.l {
+        margin-right: 25.5px;
+      }
+    }
+    .headersearch {
+      @include position(absolute,0 ,none ,none ,0 ,100% ,91px );
+      background-color: #fff;
+      box-sizing: border-box;
+      padding: 34px 8vw;
+      z-index: 9999;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      .longString{
+        background-color: #707070;
+        @include position(absolute,36px,none,none,30px,2px,19px);
+      }
+      input {
+        @include font(18px,#667a90 ,bold ,"Segoe UI" );
+        text-indent: 5px;
+        height: 19px;
+        border: none;
+        outline: none;
+      }
+      .iconbox {
+        img {
+          width:19.5px;
+          height:19.5px;
+        }
+        .c {
+          margin-right: 21.5px;
+        }
+      }
+      .list {
+        background-color: #fff;
+        @include position(absolute,72px,0,0,30px,294px,244px);
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border: 1px solid #7595b9;
+        &-li {
+          width: 100%;
+          height: 62px;
+          border: 1px solid #7595b9;
+          background-color: #ebf4fa;
+          padding: 7px 16px;
+          box-sizing: border-box;
+          @include grid(48px 10px 225px,21px 19px);
+          grid-template-areas:
+            "a b c"
+            "a b d";
+          img {
+            grid-area: a;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+          }
+          .usern {
+            @include font(16px,#667a90,bold,"Open Sans");
+            align-self: center;
+            grid-area: c;
+          }
+          .message {
+            @include onerow();
+            @include font(14px,#667a90,normal,"OpenSans-Semibold");
+            align-self: center;
+            grid-area: d;
+          }
+        }
+      }
+    }
+    .onlineUser {
+      width: 100%;
+      margin-top: 92px;
+      .user {
+        @include grid(48px 1fr 29px, 24px 24px);
+        grid-template-areas:"a b c" "a d e";
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 25px 8vw;
+        height: 91px;
+        margin-top: 1px;
+        .name{
+          @include font(16px,#667A90,normal,"OpenSans-Semibold");
+        }
+        .content {
+          @include onerow();
+          @include font(14,#667A90,normal,"OpenSans-Semibold");
+        }
+        .time{
+          @include font(11px,#667A90,normal,"OpenSans-Semibold");
+        }
+        .infornum {
+          @include flex(center,center);
+          @include font(12px,#fff,normal,"OpenSans-Semibold");
+          justify-self: right;
+          background-color: #7595b9;
+          border-radius: 2px;
+          width: 18px;
+          height: 18px;
+        }
+        .img {
+          grid-area: a;
+          position: relative;
+          width: 48px;
+          height: 48px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+          .circle {
+            @include position(absolute,0,0,none,none,8px,8px);
+            border-radius: 50%;
+            background-color: #00d905;
+          }
+        }
+      }
+    }
+  }
+  .interface {
+    overflow-x: hidden;
+    width: 100%;
+    .head {
+      display: none;
+    }
+    .head2{
+      @include grid(20px 1fr 20px 20px,32px);
+      align-items: center;
+      grid-gap: 26px;
+      background-color: #fff;
+      padding: 28px 8vw 31px;
+      box-sizing: border-box;
+      img{
+        width: 20px;
+        height: 19px;
+      }
+      .userinfor{
+        justify-self: center;
+        @include font(24px,#667A90,bold,"Open Sans");
+        text-decoration: underline;
+      }
+    }
+    .msg {
+      height: calc(100vh - 50px - 91px);
+      width: 100%;
+      margin-top: 1px;
+      background-color: #fff;
+      box-sizing: border-box;
+      padding: 16px 48px 0 34px;
+      background-image: url("../img/bg.png");
+      background-size: 55% auto;
+      background-repeat: no-repeat;
+      background-position: center center;
+      overflow-y: auto;
+      @mixin duihua($flex,$mleft,$mright,$r,$l,$rotate,$tbottom,$boolean:true) {
+        position: relative;
+        @include flex($flex, flex-end);
+        margin-top: 63px;
+        > img {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          margin-left: $mleft;
+          margin-right: $mright;
+        }
+        .content {
+          @include font(16px,#607996,normal,"Open Sans");
+          padding: 18px 33px 20px 20px;
+          box-sizing: border-box;
+          background-color: #ebf4fa;
+          border-radius: 6px;
+          max-width: 1282px;
+          min-height: 41px;
+          position: relative;
+          img {
+            transform: rotateY($rotate);
+            @include position(absolute,none,$r ,4.9px ,$l ,30px ,21px );
+          }
+          .slefname{
+            @if $boolean {
+              @include position(absolute,none,0,-33px,none,100%,30px);
+              @include flex(flex-end,center)
+            } @else{
+              @include position(absolute,none,none,-33px,0,100%,30px);
+            }
+            @include font(16px,#8c9bac,bold,"Open Sans");
+          }
+          .time {
+            @if $boolean {
+              @include position(absolute,none,0,$tbottom,none,100%,30px);
+              @include flex(flex-end,center)
+            } @else{
+              @include position(absolute,none,none,$tbottom,0,100%,30px);
+            }
+            @include font(14px,#8C9BAC,normal,"Open Sans");
+            white-space: nowrap
+          }
+        }
+      }
+      .other { 
+        @include duihua(flex-start,0,16px,none,-9.1px,0,-50px,false);
+      }
+      .mine {
+        @include duihua(flex-end,16px,0,-9.1px,none,180deg,-50px);
+      }
+      .otherone { 
+        @include duihua(flex-start,0,16px,none,-9.1px,0,-33px,false);
+      }
+      .mineone {
+        @include duihua(flex-end,16px,0,-9.1px,none,180deg,-33px);
+      }
+    }
+    .sendmsg {
+      @include grid(26px 1fr 86px,37px);
+      grid-gap: 9px;
+      background-color: #F2F4F6;
+      box-sizing: border-box;
+      padding: 6px 5.6vw;
+      position: relative;
+      .img{
+        @include flex(center,center);
+        cursor: pointer;
+        img{
+          width: 26px;
+          height: 26px;
+        }
+      }
+      input{
+        border-radius: 6px;
+        border: 1px solid #E4E4E4;
+        outline: none;
+      }
+      .moreface{
+        @include grid(repeat(12,22px),repeat(8,22px));
+        @include position(absolute,-226px,none,none,22px,325px,185px);
+        grid-gap: 5px;
+        box-sizing: border-box;
+        padding: 20px;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        border-radius: 6px;
+        background-color: #F2F4F6;
+        display: none;
+        .oneface{
+          width: 22px;
+          height: 22px;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+      }
+      .send{
+        @include flex(center,center);
+        @include font(11px,#fff,bold,"Open Sans");
+        background-color: #4D75A3;
+        border-radius: 6px;
+        width: 77px;
+        height: 31px;
+        justify-self: end;
+        align-self: center;
+        span{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
