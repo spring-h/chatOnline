@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-16 15:09:11
- * @lastEditTime: 2021-05-24 10:43 AM
+ * @lastEditTime: 2021-05-25 20:15 PM
  * @lastAuthor: Spring
  * @Description: In User Settings Edit
  * @FilePath: \chatOnline\chatOnline\js\friendList.js
@@ -12,7 +12,7 @@
 function tem(data){
   // console.log(data);
   let user=``
-  data.forEach(item => {
+  data.onlineArr.forEach(item => {
     if(item.msg.length>0){
       let content=item.msg[item.msg.length-1].value
       let time=item.msg[item.msg.length-1].time
@@ -29,7 +29,7 @@ function tem(data){
       user+=`
       <div class="user" only="${item.socket_id}">
         <div class="img">
-          <img src="/public/img/bg.png" alt="头像">
+          <img src="${item.headImg}" alt="头像">
           <div class="circle" style="display: ${infornum==0?'none':'block'};"></div>
         </div>
         <div class="name">${item.name}</div>
@@ -42,7 +42,7 @@ function tem(data){
       user+=`
       <div class="user" only="${item.id}">
         <div class="img">
-          <img src="/public/img/bg.png" alt="头像">
+          <img src="${item.headImg}" alt="头像">
           <div class="circle" style="display: none;"></div>
         </div>
         <div class="name">${item.name}</div>
@@ -57,17 +57,15 @@ function tem(data){
   
   let template=`
    <div class="header bindheader">
-     <div class="title">无限活力在线聊天室</div>
-     <img class="s bindsearch" src="/public/img/search.png" alt="搜索">
-     <img class="l bindvoice" src="/public/img/laba.png" alt="静音">
-     <img class="c" src="/public/img/circle.png" alt="圆">
+     <img class="titleimg" src="${data.mineImg}" alt="头像">
+     <img class="s bindsearch" src="/public/img/search.svg" alt="搜索">
+     <img class="l bindvoice" src="/public/img/laba.svg" alt="静音">
+     <img class="c" src="/public/img/circle.svg" alt="圆">
    </div>
    <div class="headersearch bindheadersearch">
-      <div class="longString"></div>
       <input class="bindsearchfriend" type="text" focus>
      <div class="iconbox">
-       <img class="c bindclose" src="/public/img/smallclose.png" alt="关闭">
-       <img class="s" src="/public/img/search.png" alt="搜索">
+       <img class="c bindclose" src="/public/img/close_small.svg" alt="关闭">
      </div>
      <div class="list bindlist">
       

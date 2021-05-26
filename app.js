@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-18 21:49:59
- * @lastEditTime: 2021-05-22 17:36 PM
+ * @lastEditTime: 2021-05-25 19:52 PM
  * @lastAuthor: Spring
  * @Description: In User Settings Edit
  * @FilePath: \server\app.js
@@ -29,6 +29,19 @@ const randomID = () => crypto.randomBytes(8).toString("hex");
 let onlineArr = [
   {name:'无限活力聊天室',id:100,socket_id:100,msg:[]}
 ];
+
+let headArr=[
+  "/public/img/t1.jpg",
+  "/public/img/t2.jpg",
+  "/public/img/t3.jpg",
+  "/public/img/t4.jpg",
+  "/public/img/t5.jpg",
+  "/public/img/t6.jpg",
+  "/public/img/t7.jpg",
+  "/public/img/t8.jpg",
+  "/public/img/t9.jpg",
+  "/public/img/t0.jpg",
+]
 
 fastify.register(require("point-of-view"), {
   engine: {
@@ -74,7 +87,7 @@ io.on("connection", (socket) => {
       msg:[{time,value,read:false}]
     };
     onlineArr.push(obj);
-    socket.emit("joined", onlineArr);
+    socket.emit("joined", {onlineArr,socket_id:socket.id,name});
     socket.broadcast.emit("joined",onlineArr)
   });
   //离线
@@ -96,7 +109,7 @@ io.on("connection", (socket) => {
     let socket_id=socket.id
     let reg = /[\u4e00-\u9fa5]/g;   
         time=now.replace(reg, "");
-
+    
     socket.broadcast.emit("input-text",{id,socket_id,value,name,time,mine:0,read:false})
     socket.emit("input-text",{id,socket_id,value,name,time,mine:1,read:true})
   })
@@ -108,8 +121,13 @@ io.on("connection", (socket) => {
     let now=new Date().toLocaleString()
     let reg = /[\u4e00-\u9fa5]/g;   
         time=now.replace(reg, "");
-    io.to(data.id).emit('obyo',{value,socket_id:socket.id,name,time,mine:0,read:false});
-    socket.emit('obyo',{value,socket_id:data.id,name,time,mine:1,read:true});
+    if(data.id==socket.id){
+      socket.emit('obyo',{value,socket_id:data.id,name,time,mine:1,read:true});
+    }else{
+      io.to(data.id).emit('obyo',{value,socket_id:socket.id,name,time,mine:0,read:false});
+      socket.emit('obyo',{value,socket_id:data.id,name,time,mine:1,read:true});
+    }
+    
   })
 });
 

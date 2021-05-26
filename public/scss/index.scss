@@ -3,7 +3,7 @@
  * @create: 2021-05-14 14:42 PM
  * @license: MIT
  * @lastAuthor: Spring
- * @lastEditTime: 2021-05-24 11:37 AM
+ * @lastEditTime: 2021-05-25 20:15 PM
  * @desc: 
  */
 
@@ -28,7 +28,8 @@
     height: 180px;
     border-radius: 69px;
     margin-bottom: 76px;
-    border-color: #0063b1;
+    border-style: none;
+    border: 6px solid #0063b1;
     outline: none;
     font-size: 100px;
     text-align: center;
@@ -46,18 +47,25 @@
     overflow-y: scroll;
     .header {
       @include font(18px, #667A90,bold,OpenSans-Semibold);
-      @include flex(flex-start, center);
+      @include flex(space-between, center);
       @include position(absolute,0,none ,none ,0,100%,97.5px);
       background-color: #fff;
       padding: 0 34.4px;
       box-sizing: border-box;
-      img {
+      >img {
         width: 15px;
         height: 15px;
       }
       .title {
         margin-right: 65px;
         font-family: "Open Sans";
+        white-space: nowrap;
+      }
+      .titleimg{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 50px;
       }
       // .bindvoice{
       //   transition: all .5s;
@@ -91,6 +99,7 @@
         img {
           width:15px;
           height:15px;
+          cursor: pointer;
         }
         .c {
           margin-right: 21.5px;
@@ -142,8 +151,8 @@
       // height: 100%;
       margin-top: 98.5px;
       .user {
-        @include grid(48px 267px 29px, 24px 24px);
-        grid-template-areas:"a b c" "a d e";
+        @include grid(48px 9px 267px 29px, 24px 24px);
+        grid-template-areas:"a b c f" "a d e g";
         background-color: #fff;
         box-sizing: border-box;
         padding: 25px 34px;
@@ -151,19 +160,23 @@
         margin-top: 1px;
         .name{
           @include font(15px,#667A90,normal,"OpenSans-Semibold");
+          grid-area: c;
         }
         .content {
           @include onerow();
           @include font(13px,#667A90,normal,"OpenSans-Semibold");
+          grid-area: e;
         }
         .time{
           @include font(11px,#667A90,normal,"OpenSans-Semibold");
+          grid-area: f;
           white-space: nowrap;
           justify-self: right;
         }
         .infornum {
           @include flex(center,center);
           @include font(12px,#fff,normal,"OpenSans-Semibold");
+          grid-area: g;
           justify-self: right;
           background-color: #7595b9;
           border-radius: 2px;
@@ -175,12 +188,14 @@
           position: relative;
           width: 48px;
           height: 48px;
+          border-radius: 50%;
           img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
           }
           .circle {
-            @include position(absolute,0,0,none,none,8px,8px);
+            @include position(absolute,-4px,-4px,none,none,8px,8px);
             border-radius: 50%;
             background-color: #00d905;
           }
@@ -251,7 +266,7 @@
         }
         .content {
           @include font(16px,#607996,normal,"Open Sans");
-          padding: 18px 33px 20px 20px;
+          padding: 10px 20px;
           box-sizing: border-box;
           background-color: #ebf4fa;
           border-radius: 6px;
@@ -264,10 +279,10 @@
           }
           .slefname{
             @if $boolean {
-              @include position(absolute,none,0,-33px,none,100%,30px);
+              @include position(absolute,none,0,-30px,none,100%,30px);
               @include flex(flex-end,center)
             } @else{
-              @include position(absolute,none,none,-33px,0,100%,30px);
+              @include position(absolute,none,none,-30px,0,100%,30px);
             }
             @include font(16px,#8c9bac,bold,"Open Sans");
           }
@@ -290,10 +305,10 @@
         @include duihua(flex-end,16px,0,-9.1px,none,180deg,-50px);
       }
       .otherone { 
-        @include duihua(flex-start,0,16px,none,-9.1px,0,-33px,false);
+        @include duihua(flex-start,0,16px,none,-9.1px,0,-30px,false);
       }
       .mineone {
-        @include duihua(flex-end,16px,0,-9.1px,none,180deg,-33px);
+        @include duihua(flex-end,16px,0,-9.1px,none,180deg,-30px);
       }
     }
     .sendmsg {
@@ -342,10 +357,13 @@
         border: none;
         border-radius: 6px;
         grid-area: c;
+        font-size: 23px;
+        color: #607996;
       }
       .send {
         @include flex(center,center);
         @include font(18px,#fff ,normal ,"OpenSans-Semibold" );
+        cursor: pointer;
         background-color: #4d75a3;
         align-self: flex-end;
         width: 100%;

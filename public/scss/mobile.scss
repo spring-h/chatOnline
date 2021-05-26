@@ -11,13 +11,15 @@
   }
   form{
     @include flex(flex-start,center,column);
+    margin-top: 128px;
   }
   input {
-    margin: 128px auto 48px;
+    margin-bottom: 48px;
     width: 92vw;
     height: 61px;
     border-radius: 69px;
-    border-color: #0063b1;
+    border-style: none;
+    border: 6px solid #0063b1;
     outline: none;
     font-size: 36px;
     text-align: center;
@@ -36,7 +38,7 @@
     .header {
       @include font(18px, #667A90,bold,OpenSans-Semibold);
       // @include grid(1fr repeat(3,19.5px),1fr);
-      @include flex(flex-start, center);
+      @include flex(space-between, center);
       grid-gap: 25.5px;
       align-items: center;
       @include position(absolute,0,none ,none ,0,100%,91px);
@@ -49,9 +51,19 @@
       }
       .title {
         font-family: "Open Sans";
+        white-space: nowrap;
+      }
+      .titleimg{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 50px;
       }
       .s,.l {
         margin-right: 25.5px;
+        &:hover{
+          cursor: pointer;
+        }
       }
     }
     .headersearch {
@@ -78,6 +90,7 @@
         img {
           width:19.5px;
           height:19.5px;
+          cursor: pointer;
         }
         .c {
           margin-right: 21.5px;
@@ -117,6 +130,9 @@
             align-self: center;
             grid-area: d;
           }
+          &:hover{
+            cursor: pointer;
+          }
         }
       }
     }
@@ -124,8 +140,8 @@
       width: 100%;
       margin-top: 92px;
       .user {
-        @include grid(48px 1fr 29px, 24px 24px);
-        grid-template-areas:"a b c" "a d e";
+        @include grid(48px 9px 1fr 29px, 24px 24px);
+        grid-template-areas:"a b c f" "a d e g";
         background-color: #fff;
         box-sizing: border-box;
         padding: 25px 8vw;
@@ -133,17 +149,21 @@
         margin-top: 1px;
         .name{
           @include font(16px,#667A90,normal,"OpenSans-Semibold");
+          grid-area: c;
         }
         .content {
           @include onerow();
           @include font(14,#667A90,normal,"OpenSans-Semibold");
+          grid-area: e;
         }
         .time{
           @include font(11px,#667A90,normal,"OpenSans-Semibold");
+          grid-area: f;
         }
         .infornum {
           @include flex(center,center);
           @include font(12px,#fff,normal,"OpenSans-Semibold");
+          grid-area: g;
           justify-self: right;
           background-color: #7595b9;
           border-radius: 2px;
@@ -155,15 +175,21 @@
           position: relative;
           width: 48px;
           height: 48px;
+          border-radius: 50%;
+          
           img {
             width: 100%;
             height: 100%;
+            border-radius: 50%
           }
           .circle {
-            @include position(absolute,0,0,none,none,8px,8px);
+            @include position(absolute,-4px,-4px,none,none,8px,8px);
             border-radius: 50%;
             background-color: #00d905;
           }
+        }
+        &:hover{
+          cursor: pointer;
         }
       }
     }
@@ -280,6 +306,8 @@
         border-radius: 6px;
         border: 1px solid #E4E4E4;
         outline: none;
+        font-size: 23px;
+        color: #607996;
       }
       .moreface{
         @include grid(repeat(12,22px),repeat(8,22px));
@@ -302,6 +330,7 @@
       .send{
         @include flex(center,center);
         @include font(11px,#fff,bold,"Open Sans");
+        cursor: pointer;
         background-color: #4D75A3;
         border-radius: 6px;
         width: 77px;

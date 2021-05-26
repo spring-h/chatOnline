@@ -4,7 +4,7 @@
  * @create: 2021-05-14 14:42 PM
  * @license: MIT
  * @lastAuthor: Spring
- * @lastEditTime: 2021-05-24 11:37 AM
+ * @lastEditTime: 2021-05-25 20:15 PM
  * @desc: 
  */
 * {
@@ -63,7 +63,8 @@
   height: 180px;
   border-radius: 69px;
   margin-bottom: 76px;
-  border-color: #0063b1;
+  border-style: none;
+  border: 6px solid #0063b1;
   outline: none;
   font-size: 100px;
   text-align: center;
@@ -89,7 +90,7 @@
   font-weight: bold;
   font-family: OpenSans-Semibold;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
   position: absolute;
@@ -103,13 +104,20 @@
   padding: 0 34.4px;
   box-sizing: border-box;
 }
-.chatroom .online .header img {
+.chatroom .online .header > img {
   width: 15px;
   height: 15px;
 }
 .chatroom .online .header .title {
   margin-right: 65px;
   font-family: "Open Sans";
+  white-space: nowrap;
+}
+.chatroom .online .header .titleimg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 50px;
 }
 .chatroom .online .header .s, .chatroom .online .header .l {
   margin-right: 36px;
@@ -155,6 +163,7 @@
 .chatroom .online .headersearch .iconbox img {
   width: 15px;
   height: 15px;
+  cursor: pointer;
 }
 .chatroom .online .headersearch .iconbox .c {
   margin-right: 21.5px;
@@ -219,10 +228,10 @@
 }
 .chatroom .online .onlineUser .user {
   display: grid;
-  grid-template-columns: 48px 267px 29px;
+  grid-template-columns: 48px 9px 267px 29px;
   grid-template-rows: 24px 24px;
   grid-gap: 0 0;
-  grid-template-areas: "a b c" "a d e";
+  grid-template-areas: "a b c f" "a d e g";
   background-color: #fff;
   box-sizing: border-box;
   padding: 25px 34px;
@@ -234,6 +243,7 @@
   color: #667A90;
   font-weight: normal;
   font-family: "OpenSans-Semibold";
+  grid-area: c;
 }
 .chatroom .online .onlineUser .user .content {
   overflow: hidden;
@@ -243,12 +253,14 @@
   color: #667A90;
   font-weight: normal;
   font-family: "OpenSans-Semibold";
+  grid-area: e;
 }
 .chatroom .online .onlineUser .user .time {
   font-size: 11px;
   color: #667A90;
   font-weight: normal;
   font-family: "OpenSans-Semibold";
+  grid-area: f;
   white-space: nowrap;
   justify-self: right;
 }
@@ -261,6 +273,7 @@
   color: #fff;
   font-weight: normal;
   font-family: "OpenSans-Semibold";
+  grid-area: g;
   justify-self: right;
   background-color: #7595b9;
   border-radius: 2px;
@@ -272,15 +285,17 @@
   position: relative;
   width: 48px;
   height: 48px;
+  border-radius: 50%;
 }
 .chatroom .online .onlineUser .user .img img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .chatroom .online .onlineUser .user .img .circle {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -4px;
+  right: -4px;
   bottom: none;
   left: none;
   width: 8px;
@@ -376,7 +391,7 @@
   color: #607996;
   font-weight: normal;
   font-family: "Open Sans";
-  padding: 18px 33px 20px 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
   background-color: #ebf4fa;
   border-radius: 6px;
@@ -398,7 +413,7 @@
   position: absolute;
   top: none;
   right: none;
-  bottom: -33px;
+  bottom: -30px;
   left: 0;
   width: 100%;
   height: 30px;
@@ -441,7 +456,7 @@
   color: #607996;
   font-weight: normal;
   font-family: "Open Sans";
-  padding: 18px 33px 20px 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
   background-color: #ebf4fa;
   border-radius: 6px;
@@ -463,7 +478,7 @@
   position: absolute;
   top: none;
   right: 0;
-  bottom: -33px;
+  bottom: -30px;
   left: none;
   width: 100%;
   height: 30px;
@@ -514,7 +529,7 @@
   color: #607996;
   font-weight: normal;
   font-family: "Open Sans";
-  padding: 18px 33px 20px 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
   background-color: #ebf4fa;
   border-radius: 6px;
@@ -536,7 +551,7 @@
   position: absolute;
   top: none;
   right: none;
-  bottom: -33px;
+  bottom: -30px;
   left: 0;
   width: 100%;
   height: 30px;
@@ -549,7 +564,7 @@
   position: absolute;
   top: none;
   right: none;
-  bottom: -33px;
+  bottom: -30px;
   left: 0;
   width: 100%;
   height: 30px;
@@ -579,7 +594,7 @@
   color: #607996;
   font-weight: normal;
   font-family: "Open Sans";
-  padding: 18px 33px 20px 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
   background-color: #ebf4fa;
   border-radius: 6px;
@@ -601,7 +616,7 @@
   position: absolute;
   top: none;
   right: 0;
-  bottom: -33px;
+  bottom: -30px;
   left: none;
   width: 100%;
   height: 30px;
@@ -618,7 +633,7 @@
   position: absolute;
   top: none;
   right: 0;
-  bottom: -33px;
+  bottom: -30px;
   left: none;
   width: 100%;
   height: 30px;
@@ -691,6 +706,8 @@
   border: none;
   border-radius: 6px;
   grid-area: c;
+  font-size: 23px;
+  color: #607996;
 }
 .chatroom .interface .sendmsg .send {
   display: flex;
@@ -701,6 +718,7 @@
   color: #fff;
   font-weight: normal;
   font-family: "OpenSans-Semibold";
+  cursor: pointer;
   background-color: #4d75a3;
   align-self: flex-end;
   width: 100%;

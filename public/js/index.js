@@ -3,13 +3,25 @@
  * @create: 2021-05-14 14:39 PM
  * @license: MIT
  * @lastAuthor: Spring
- * @lastEditTime: 2021-05-24 11:43 AM
+ * @lastEditTime: 2021-05-25 20:05 PM
  * @desc: 登录界面
  */
 import index from "./_index.js"
 import friendList from "./_friendList.js"
 import chatBox from "./_chatBox.js"
 
+let headArr=[
+  "/public/img/t1.jpg",
+  "/public/img/t2.jpg",
+  "/public/img/t3.jpg",
+  "/public/img/t4.jpg",
+  "/public/img/t5.jpg",
+  "/public/img/t6.jpg",
+  "/public/img/t7.jpg",
+  "/public/img/t8.jpg",
+  "/public/img/t9.jpg",
+  "/public/img/t0.jpg",
+]
 
 //音频
 const mp3=new Audio('/public/audio/reminding.mp3')
@@ -18,9 +30,8 @@ const socket = io()
 //判断当前页面的位置
 let positionNow = "index"
 //在线人
-let onlineArr = [
-  // {name:'无限活力聊天室',id:100,msg:[]}
-]
+let onlineArr = []
+let mineImg=""
 
 /**
 * 
@@ -33,7 +44,17 @@ function sendUsername(value) {
 
 //TODO 加入聊天室
 socket.on('joined',data=>{
-  getFriend(data)
+  if(data.socket_id){
+    let index=data.onlineArr.findIndex(item=>item.socket_id==data.socket_id)
+    if(index>10){
+      mineImg=headArr[index.slice(-1)]
+    }else{
+      mineImg=headArr[index]
+    }
+    getFriend(data.onlineArr)
+  }else{
+    getFriend(data)
+  }
 })
 
 //TODO 退出聊天室
@@ -47,6 +68,12 @@ socket.on('leaved',data=>{
 
 //TODO 公共聊天室
 socket.on('input-text',data=>{
+  let index=onlineArr.findIndex(item=>item.socket_id==data.socket_id)
+  if(index>10){
+    index=index.slice(-1)
+  }
+  console.log(index);
+  data.headImg=onlineArr[index].headImg
   onlineArr[0].msg.push(data)
   if(positionNow=="chatroom"){
     onlineArr[0].msg[onlineArr[0].msg.length-1].read=true
@@ -63,6 +90,11 @@ socket.on('input-text',data=>{
 //TODO 私聊
 socket.on("obyo",data=>{
   let index=onlineArr.findIndex(item=>item.socket_id==data.socket_id)
+  if(data.mine==0){
+    data.headImg=onlineArr[index].headImg
+  }else{
+    data.headImg=mineImg
+  }
   onlineArr[index].msg.push(data)
   if(positionNow==data.socket_id){
     onlineArr[index].msg[onlineArr[index].msg.length-1].read=true
@@ -88,20 +120,24 @@ window.onresize = function (event) {
 
 //TODO enter事件 跳转到聊天室和发送消息
 document.onkeydown = function (e) {
-  console.log(positionNow);
   if (e.keyCode != "13") {
     return
   }
   if(positionNow=="index"){
     goFriendList()
   }else if(positionNow=="chatroom"){
+    if(sendMsg()==""){
+      return
+    }
     socket.emit('input-text',sendMsg())
   }else if(positionNow=="friendList"){
     
   }else{
+    if(sendMsg()==""){
+      return
+    }
     socket.emit('obyo',{value:sendMsg(),id:positionNow})
   }
-  console.log(onlineArr);
 }
 
 //TODO 音频开启
@@ -117,18 +153,19 @@ function switchAudio(){
 
 //TODO 进入聊天室
 function goFriendList(){
-  
+
   let tem = ""
   const bindusername = Tool(".bindusername").value
   // const bindnumber = Tool(".bindnumber").value
   if(bindusername.length>6){
     alert("字符不得大于6个")
+    return
   }
   if (width > 1024) {
     tem = `
     <div class="chatroom">
     <div class="online">
-    ${friendList(onlineArr)}
+    ${friendList({onlineArr,mineImg})}
     </div>
     <div class="interface">
     </div>
@@ -138,7 +175,7 @@ function goFriendList(){
     tem = `
     <div class="chatroom">
     <div class="online">
-    ${friendList(onlineArr)}
+    ${friendList({onlineArr,mineImg})}
     </div>
     </div>
     `
@@ -154,7 +191,13 @@ function getFriend(data){
   try {
     let onlinenode=document.querySelector('.online')
     onlineArr=data
-    onlinenode.innerHTML=friendList(onlineArr)
+    console.log(data);
+    onlineArr.forEach((item,index)=>{
+      console.log(index);
+      item.headImg=headArr[index]
+    })
+    console.log(onlineArr);
+    onlinenode.innerHTML=friendList({onlineArr,mineImg})
     bindEvent()
   } catch (error) {
     
@@ -189,6 +232,9 @@ function clickpeopleevent(e){
   }
   let only=node.getAttribute('only')
   let index=onlineArr.findIndex(item=>item.socket_id==only)
+  if(only!=100){
+    onlineArr[index].msg[0].headImg=mineImg
+  }
   onlineArr[index].msg.forEach(item=>{
     item.read=true
   })
@@ -204,6 +250,8 @@ function clickpeopleevent(e){
     `
     changeBody(tem)
     back()
+    let send=Tool('.bindSend')
+    send.onclick=clickSend
   }
   if(only!=100){
     positionNow=only
@@ -224,11 +272,18 @@ function searchFriend(){
 
 //TODO 搜索框 input事件
 function searchFriendEvent(e){
+  
   let list=Tool('.bindlist')
   let tem=``
+  let peoplenum=0
+  if(e.target.value.trim()==""){
+    list.style.dispaly='none'
+    return
+  }
   onlineArr.forEach((item,index)=>{
-    let i=item.name.search(e.target.value)
+    let i=item.name.indexOf(e.target.value.trim())
     if(i!=-1){
+      peoplenum++
        tem +=`
       <div class="list-li" only="${onlineArr[index].socket_id}">
       <img src="/public/img/circle.png" alt="头像">
@@ -237,6 +292,12 @@ function searchFriendEvent(e){
       </div>`
     }
   })
+  console.log(peoplenum);
+  if(peoplenum>0){
+    list.style.display='block'
+  }else{
+    list.style.dispaly='none'
+  }
   list.innerHTML=tem
   list.onclick=clickSearchResult
 }
@@ -250,6 +311,9 @@ function clickSearchResult(e){
     }
     let only=node.getAttribute('only')
     let index=onlineArr.findIndex(item=>item.socket_id==only)
+    if(only!=100){
+      onlineArr[index].msg[0].headImg=mineImg
+    }
     onlineArr[index].msg.forEach(item=>{
       item.read=true
     })
@@ -265,6 +329,8 @@ function clickSearchResult(e){
       `
       changeBody(tem)
       back()
+      let send=Tool('.bindSend')
+      send.onclick=clickSend
     }
     if(only!=100){
       positionNow=only
@@ -284,9 +350,11 @@ function clickSearchResult(e){
 function clickSearch(){
   let head=Tool('.bindheader')
   let headsearch=Tool('.bindheadersearch')
+  let list=Tool('.bindlist')
   Tool('.bindsearch').onclick=function(){
     head.style.display='none'
     headsearch.style.display='flex'
+    list.style.display='none'
     focus(Tool('.bindsearchfriend'))
   }
   clickclosesearch()
@@ -310,7 +378,7 @@ function back(){
     let tem = `
     <div class="chatroom">
     <div class="online">
-    ${friendList(onlineArr)}
+    ${friendList({onlineArr,mineImg})}
     </div>
     </div>
     `
@@ -370,6 +438,9 @@ function clickSwichFace(){
 */
 //TODO 点击发送
 function clickSend(){
+  if(sendMsg()==""){
+    return
+  }
   if(positionNow=="chatroom"){
     socket.emit('input-text',sendMsg())
   }else{
@@ -381,7 +452,7 @@ function clickSend(){
 function renderFriendList(){
   try {
     let oldnode=Tool('.online')
-    oldnode.innerHTML=friendList(onlineArr)
+    oldnode.innerHTML=friendList({onlineArr,mineImg})
     bindEvent()
   } catch (error) {
     // console.log(error);
